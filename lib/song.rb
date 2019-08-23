@@ -6,7 +6,7 @@ class Song
 
   def self.table_name
     self.to_s.downcase.pluralize
-    binding.pry #Song is self and is converted into "songs"
+     #Song is self and is converted into "songs"
   end
 
   def self.column_names
