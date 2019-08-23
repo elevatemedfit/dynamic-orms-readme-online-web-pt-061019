@@ -17,7 +17,7 @@ class Song
     table_info = DB[:conn].execute(sql)
     column_names = []
     table_info.each do |row|
-      column_names << row["type"]
+      column_names << row["name"]
       binding.pry
     end
     column_names.compact
