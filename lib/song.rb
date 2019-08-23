@@ -10,7 +10,7 @@ class Song
   end
 
   def self.column_names
-    DB[:conn].results_as_hash = true
+    DB[:conn].results_as_hash = true #SELECT returns a hash/not an array.(column names as keys)
 
     sql = "pragma table_info('#{table_name}')"
 
@@ -18,6 +18,7 @@ class Song
     column_names = []
     table_info.each do |row|
       column_names << row["name"]
+      binding.pry
     end
     column_names.compact
   end
@@ -35,7 +36,7 @@ class Song
   def save
     sql = "INSERT INTO #{table_name_for_insert} (#{col_names_for_insert}) VALUES (#{values_for_insert})"
     DB[:conn].execute(sql)
-    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM #{table_name_for_insert}")[0][0]
+    @id = DB[:conn].execute("SELECT last_insert_rowid() FROM #{table_name_for_insert}")[0][0]#when SELECT is used, results_as_hash method returns hash not an array.
   end
 
   def table_name_for_insert
